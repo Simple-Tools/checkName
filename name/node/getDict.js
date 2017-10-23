@@ -22,14 +22,27 @@ const download = {
                 console.log("downloaded id:"+i);
                 let data = Buffer.concat(buffers,bufferLength)
                 let html = iconv.decode(data,'GBK')
+                let word = html.match(/<h2>(.)/)[1];
+                let content = html.match(/<ul class=\"list-group\">([\s\S]*?)<\/ul>/)[1].replace(/<[^>]*>/gi,"").replace(/[\r\n]/g,"-").replace(/[\s ]/g,'');
+                content = content.replace("--------(adsbygoogle=window.adsbygoogle||[]).push({});","");
+                content = content.replace(/;/g,"；").replace(/:/g,"：").replace(/------/g,";").replace(/--/g,":").replace(/::/g,"");
+                wordDict[word]=content;
+                //console.log(wordDict);
+                fs.appendFile("dict","\r"+JSON.stringify(wordDict),'utf-8',(err)=>{
+                    if(err) throw err;
+                });
+                /*
                 let $ = cheerio.load(html, {decodeEntities: false});
                 let word = $('h2').text().substr(0,1);
                 let info = $(".list-group-item").text().trim().replace('\n','');
                 console.log(word+" "+info);
+                */
                 //html = iconv.decode(html, 'gb2312');
                 //console.log(html);
             });
         });
     }
 };
-download.getWord(2);
+for(let i =1;i<5;i++){
+    download.getWord(i);
+}
