@@ -2,9 +2,11 @@
 //https://wenku.baidu.com/view/c0b7fe8502d276a200292e8d.html
 const fs = require('fs');
 const http = require('http');
-const iconv = require("iconv-lite"); 
+const iconv = require('iconv-lite'); 
+const cheerio = require('cheerio');
 
 const baseUrl = "http://wuxing.bm8.com.cn/wap_wuxing/";
+const wordDict = {};
 
 const download = {
     getWord(i){
@@ -20,10 +22,14 @@ const download = {
                 console.log("downloaded id:"+i);
                 let data = Buffer.concat(buffers,bufferLength)
                 let html = iconv.decode(data,'GBK')
+                let $ = cheerio.load(html, {decodeEntities: false});
+                let word = $('h2').text().substr(0,1);
+                let info = $(".list-group-item").text().trim().replace('\n','');
+                console.log(word+" "+info);
                 //html = iconv.decode(html, 'gb2312');
-                console.log(html);
+                //console.log(html);
             });
         });
     }
 };
-download.getWord(1);
+download.getWord(2);

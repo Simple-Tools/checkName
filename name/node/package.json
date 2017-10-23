@@ -4,6 +4,7 @@
   "description": "",
   "main": "filter.js",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "iconv-lite": "^0.4.19"
   },
   "devDependencies": {},
