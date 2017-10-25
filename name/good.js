@@ -11,7 +11,7 @@
       showWords();
   }
   let addEventToClear = ()=>{
-      document.getElementById("clear").addEventListener('click',clearBtnClick);
+      document.getElementById("clear").addEventListener('touchstart',clearBtnClick);
   }
   let btnClick = (e)=>{
     //   console.log("HI");
@@ -36,7 +36,7 @@
       addEventToClear();
   }
   Array.from(btns).forEach((element) =>{
-    element.addEventListener('click', btnClick);
+    element.addEventListener('touchstart', btnClick);
   });
   initWordDiv();
   console.log("AAAA");
