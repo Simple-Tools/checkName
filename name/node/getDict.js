@@ -7,6 +7,8 @@ const cheerio = require('cheerio');
 
 const baseUrl = "http://wuxing.bm8.com.cn/wap_wuxing/";
 const wordDict = {};
+const wordArray = [];
+const count = {items:0,downloadItems:0};
 
 const download = {
     getWord(i){
@@ -28,6 +30,10 @@ const download = {
                     content = content.replace("--------(adsbygoogle=window.adsbygoogle||[]).push({});","");
                     content = content.replace(/;/g,"；").replace(/:/g,"：").replace(/------/g,";").replace(/--/g,":").replace(/::/g,"");
                     wordDict[word]=content;
+                    let wordObj = {id:i,key:word,content};
+                    wordArray.push(wordObj);
+                    count.downloadItems++;
+                    this.checkSave();
                     resolve(content);
                     //console.log(wordDict);
                     /*
@@ -39,22 +45,35 @@ const download = {
                     //html = iconv.decode(html, 'gb2312');
                     //console.log(html);
                 }).on('error', (e) => {
+                    this.save();
                     reject(e.message);
                 });
             });
         });
     },
+    checkSave(){
+        //console.log(count.downloadItems);
+        if(count.downloadItems==count.items || count.downloadItems%100==0 ) this.save();
+    },
     save(){
-        fs.appendFile("dict","\r"+JSON.stringify(wordDict),'utf-8',(err)=>{
+        console.log(`save items:${count.downloadItems}`)
+        fs.writeFile("dict.json","\r"+JSON.stringify(wordArray),'utf-8',(err)=>{
             if(err) throw err;
         });
     },
     async runSync(){
-        for(let i =1;i<7055;i++){
+        for(let i =1;i<items;i++){
             await this.getWord(i);
         }
-        this.save();
+        //this.save();
+    },
+    run(num){
+        count.items = num; 
+        for(let i =1;i<count.items+1;i++){
+            this.getWord(i);
+        }
     }
 };
 
-download.runSync();
+//download.runSync();
+download.run(7055);
