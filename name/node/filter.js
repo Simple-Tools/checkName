@@ -27,7 +27,7 @@ const filter = {
                 this.names.push({"key":key,"mean":name[key]})
             }
             let good = this.getNames();
-            this.saveNames('good.html',good);
+            this.saveNames('../good.html',good);
         });
     },
     getNames(){
@@ -63,9 +63,20 @@ const filter = {
         //console.log()
         let lines = "";
         names.forEach((v)=>{
-            if(this.dict[v.key])
-            lines+="<a href='http://hanyu.baidu.com/s?wd="+v.key+"&ptype=char'>"+v.key+"</a> : "+this.dict[v.key].py+"，"+this.dict[v.key].wx+"，"+this.dict[v.key].jx+" "+v.mean+"\r\n<br>";
-            else lines+="<a href='http://hanyu.baidu.com/s?wd="+v.key+"&ptype=char'>"+v.key+"</a> : "+v.mean+"\r\n<br>";
+            let info = "";
+            if(this.dict[v.key]){
+                info= `<span class="py">${this.dict[v.key].py}</span>
+                    <span class="wx">${this.dict[v.key].wx}</span>
+                    <span class="jx">${this.dict[v.key].jx}</span>`
+            }
+            lines+= `
+                <div id="${v.key}" class="w"> 
+                  <a href="http://hanyu.baidu.com/s?wd=${v.key}&ptype=zici">${v.key}</a>
+                  ${info}
+                  <span class="addBtn">备选</span>
+                  <br><span class="mean">${v.mean}</span>
+                </div>
+            `;
         });
         let html = `<!DOCTYPE html>
         <html lang="en">
@@ -73,10 +84,14 @@ const filter = {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link rel="stylesheet" href="name.css">
             <title>起名好字</title>
         </head>
         <body>
+            <div class="nameList">
             ${lines}
+            </div>
+            <script src="good.js"></script>
         </body>
         </html>`
         fs.writeFile(fileName,/*JSON.stringify(names)*/html,'utf-8',(err)=>{
