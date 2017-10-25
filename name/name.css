@@ -22,3 +22,64 @@ div#info {
     font-size: 14px;
     color: #2196F3;
 }
+
+div.nameList {
+    margin: 20px;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: 'Heiti SC', 'Microsoft YaHei';
+ }
+ 
+ div.nameList a{
+     color: #2196F3;
+     text-decoration: none;
+     font-size: 24px;
+ }
+
+div.w {
+    margin-top: 10px;
+    padding-left: 5px;
+    border-left: 1px solid #e8e8e8;
+}
+
+span.addBtn, span#clear {
+    display: inline-block;
+    padding: 2px;
+    font-size: 14px;
+    border: 1px solid #e8e8e8;
+    background: #f7f7f7;
+}
+span.addBtn::before{
+    content:"+";
+}
+
+div#selectedDiv {
+    position: fixed;
+    bottom: 0;
+    height: 60px;
+    padding: 10px;
+    background: rgba(255,255,255,.8);
+    width: 100%;
+    overflow: hidden;
+    border-top: 1px solid #9C27B0;
+    font-family: 'Heiti SC', 'Microsoft YaHei';
+}
+
+span.selected {
+    font-size: 24px;
+    font-weight: 300;
+    display: inline-block;
+    color: #2196F3;
+    padding: 2px;
+}
+
+
+
+#selectedDiv div {
+    font-size: 14px;
+}
+
+span#clear {
+    float: right;
+    margin-right: 30px;
+}
