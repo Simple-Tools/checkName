@@ -11,7 +11,15 @@ Array.prototype.isContains = function(string){
 };
 const filter = {
     names:[],
+    dict:{},
     run(){
+        fs.readFile('newDict.json','utf-8',(err,data)=>{
+            if(err) throw err;
+            this.dict = JSON.parse(data);
+            this.generate();
+        });
+    },
+    generate(){
         fs.readFile('name.json','utf-8',(err,data)=>{
             if(err) throw err;
             let name=JSON.parse(data);
@@ -55,9 +63,23 @@ const filter = {
         //console.log()
         let lines = "";
         names.forEach((v)=>{
-            lines+="<a href='http://hanyu.baidu.com/s?wd="+v.key+"'>"+v.key+"</a> :"+v.mean+"\r\n<br>";
+            if(this.dict[v.key])
+            lines+="<a href='http://hanyu.baidu.com/s?wd="+v.key+"&ptype=char'>"+v.key+"</a> : "+this.dict[v.key].py+"，"+this.dict[v.key].wx+"，"+this.dict[v.key].jx+" "+v.mean+"\r\n<br>";
+            else lines+="<a href='http://hanyu.baidu.com/s?wd="+v.key+"&ptype=char'>"+v.key+"</a> : "+v.mean+"\r\n<br>";
         });
-        fs.writeFile(fileName,/*JSON.stringify(names)*/lines,'utf-8',(err)=>{
+        let html = `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>起名好字</title>
+        </head>
+        <body>
+            ${lines}
+        </body>
+        </html>`
+        fs.writeFile(fileName,/*JSON.stringify(names)*/html,'utf-8',(err)=>{
             if(err) throw err;
         })
     }
