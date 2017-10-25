@@ -70,7 +70,9 @@ const download = {
     run(num){
         count.items = num; 
         for(let i =1;i<count.items+1;i++){
-            this.getWord(i);
+            setTimeout(()=>{
+                this.getWord(i);
+            },(100)*i);  
         }
     }
 };
