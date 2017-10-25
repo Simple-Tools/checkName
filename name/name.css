@@ -84,3 +84,7 @@ span#clear {
     float: right;
     margin-right: 30px;
 }
+
+body {
+    overflow: hidden;
+}
