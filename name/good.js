@@ -1,5 +1,6 @@
 (_=>{
   let btns = document.getElementsByClassName('addBtn');
+  let toggleBtn = document.getElementById("toggleSlectedBtn");
   let keys= localStorage.getItem("words")?JSON.parse(localStorage.getItem("words")):[];
   let selectedDiv;
   let saveWords = w=>{
@@ -9,20 +10,36 @@
       keys = [];
       localStorage.setItem("words","[]");
       showWords();
-      if(keys.length==0) selectedDiv.style.margin = "0 0 -100px 0";
+      if(keys.length==0) wordHide();
   }
   let addEventToClear = ()=>{
       document.getElementById("clear").addEventListener('touchend',clearBtnClick);
   }
-  let addEventToAddBtn = ()=>{
+  let addEvents = ()=>{
     Array.from(btns).forEach(i=>{
       i.addEventListener('touchend', btnClick);
     });
+    toggleBtn.addEventListener('touchend',toggleBtnClick);
     // for(let i=0; i<btns.length; i++){
     //   btns[i].addEventListener('touchend', btnClick);
     // }
   }
-  let btnClick = (e)=>{
+  let wordHide = ()=>{
+    toggleBtn.innerText = "显示已选字";
+    selectedDiv.style.margin = "0 0 -100px 0";
+  }
+  let wordShow = ()=>{
+    toggleBtn.innerText = "隐藏已选字";
+    selectedDiv.style.margin = "0";
+  }
+  let toggleBtnClick = e=>{
+    if(toggleBtn.innerText=="显示已选字"){
+      wordShow();
+    }else{
+      wordHide();
+    }
+  };
+  let btnClick = e=>{
     //   console.log("HI");
     //   console.log(e.srcElement.parentElement.id);
       let word = e.srcElement.parentElement.id;
@@ -36,7 +53,7 @@
     document.getElementsByTagName('body')[0].appendChild(wordDiv);
     selectedDiv = document.getElementById("selectedDiv");   
     showWords();
-    if(keys.length==0) selectedDiv.style.margin = "0 0 -100px 0";
+    if(keys.length==0) wordHide();
   };
   let showWords = w=>{
       let words = "";
@@ -44,10 +61,10 @@
           words+=`<span class="selected">${w}</span>`; 
       });
       selectedDiv.innerHTML =`<div><div>已选字：<span id="clear">清空</span></div>${words}</div>`;
-      selectedDiv.style.margin = "0";
       addEventToClear();
+      wordShow();
   };
-  addEventToAddBtn();
+  addEvents();
   initWordDiv();
   console.log("AAAA");
 })();

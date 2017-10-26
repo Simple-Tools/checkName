@@ -71,7 +71,7 @@ div#selectedDiv {
     overflow: hidden;
     border-top: 1px solid #9C27B0;
     font-family: 'Heiti SC', 'Microsoft YaHei';
-    transition: 3s margin-bootom;
+    transition: .4s margin-bootom;
 }
 
 span.selected {
@@ -108,7 +108,7 @@ span#clear {
     font-weight: 300;
 }
 
-input.search {
+input#search {
     margin: 2px 20px;
     height: 24px;
     width: 22px;
@@ -130,7 +130,7 @@ input:focus,[contenteditable="true"]:focus {
     outline: none;
 }
 
-span.toggleSlectedBtn {
+span#toggleSlectedBtn {
     display: inline-block;
     padding: 2px;
     font-size: 14px;

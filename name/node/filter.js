@@ -88,6 +88,10 @@ const filter = {
             <title>起名好字</title>
         </head>
         <body>
+            <div class="menu">
+                <span id="toggleSlectedBtn">显示已选字</span>  
+                <input name="search" id="search"/>
+            </div>
             <div class="nameList">
             ${lines}
             </div>
