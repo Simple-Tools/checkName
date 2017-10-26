@@ -1,8 +1,38 @@
 (_=>{
-  let btns = document.getElementsByClassName('addBtn');
+  let ua = window.navigator.userAgent.toLowerCase(); 
+  let btns = document.getElementsByClassName("addBtn");
   let toggleBtn = document.getElementById("toggleSlectedBtn");
+  let searchForm = document.getElementById("searchForm");
+  let inputBox = document.getElementById("search");
   let keys= localStorage.getItem("words")?JSON.parse(localStorage.getItem("words")):[];
+  let selected = document.getElementsByClassName("selected");
   let selectedDiv;
+  let changeSearchPositon = ()=>{
+    inputBox.addEventListener('focus',e=>{
+      searchForm.style.margin = "50px 0";
+      setTimeout(()=>{
+        searchForm.style.margin = "0";
+      },3500);
+    });
+    inputBox.addEventListener('blur',e=>{
+      searchForm.style.margin = "0";
+    });
+  }
+  let fromSubmit = ()=>{
+    searchForm.addEventListener("submit",(e)=>{
+      let key = inputBox.value;
+      console.log(key);
+      if(document.getElementById(key)){
+        location.hash = key;
+      }else{
+        let info = nameData[inputBox.value];
+        alert(info);
+      }
+      //info.innerText = data[inputBox.value];
+      
+      e.preventDefault();
+    });
+  }
   let saveWords = w=>{
     localStorage.setItem("words",JSON.stringify(keys));
   }
@@ -14,12 +44,17 @@
   }
   let addEventToClear = ()=>{
       document.getElementById("clear").addEventListener('touchend',clearBtnClick);
+      Array.from(selected).forEach(i=>{
+        i.addEventListener('touchend', gotoSelected);
+      });
   }
   let addEvents = ()=>{
     Array.from(btns).forEach(i=>{
       i.addEventListener('touchend', btnClick);
     });
     toggleBtn.addEventListener('touchend',toggleBtnClick);
+    fromSubmit();
+    if(/micromessenger/.exec(ua)) changeSearchPositon();
     // for(let i=0; i<btns.length; i++){
     //   btns[i].addEventListener('touchend', btnClick);
     // }
@@ -47,13 +82,17 @@
       saveWords();
       showWords();
   };
+  let gotoSelected = e=>{
+     let key = e.srcElement.innerText;
+     location.hash = key;
+  }
   let initWordDiv = ()=>{
     let wordDiv = document.createElement('div');
     wordDiv.id="selectedDiv";
     document.getElementsByTagName('body')[0].appendChild(wordDiv);
     selectedDiv = document.getElementById("selectedDiv");   
     showWords();
-    if(keys.length==0) wordHide();
+    wordHide();
   };
   let showWords = w=>{
       let words = "";

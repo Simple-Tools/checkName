@@ -89,12 +89,15 @@ const filter = {
         </head>
         <body>
             <div class="menu">
-                <span id="toggleSlectedBtn">显示已选字</span>  
-                <input name="search" id="search"/>
+                <span id="toggleSlectedBtn">显示已选字</span> 
+                <form id="searchForm"> 
+                    <input name="search" id="search"/>
+                </form>
             </div>
             <div class="nameList">
             ${lines}
             </div>
+            <script src="name.js"></script>
             <script src="good.js"></script>
         </body>
         </html>`

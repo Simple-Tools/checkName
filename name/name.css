@@ -138,3 +138,9 @@ span#toggleSlectedBtn {
     background: #f7f7f7;
     margin: 3px 20px;
 }
+
+form#searchForm {
+    float: right;
+    background: #fff;
+    /* margin-top: 30px; */
+}
