@@ -26,8 +26,11 @@
         location.hash = key;
       }else{
         let info = nameData[inputBox.value];
-        alert(info);
+        if(info) alert(info);
+        else alert("未找到改字");
       }
+      inputBox.value = "";
+      inputBox.blur();
       //info.innerText = data[inputBox.value];
       
       e.preventDefault();
