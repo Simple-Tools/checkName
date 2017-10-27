@@ -21,16 +21,17 @@
   let fromSubmit = ()=>{
     searchForm.addEventListener("submit",(e)=>{
       let key = inputBox.value;
+      if(key.length>1) key=key.substring(0,1);
       console.log(key);
-      inputBox.value = "";
       inputBox.blur();
       if(document.getElementById(key)){
         location.hash = key;
       }else{
         let info = nameData[inputBox.value];
         if(info) alert(info);
-        else alert("未找到改字");
+        else alert("未找到此字");
       }
+      inputBox.value = "";
       //info.innerText = data[inputBox.value];
       e.preventDefault();
     });
