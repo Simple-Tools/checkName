@@ -152,7 +152,7 @@
   let showWords = init=>{
       let words = "";
       keys.forEach(w=>{
-          document.getElementById(w).className="w added";
+          if(document.getElementById(w)) document.getElementById(w).className="w added";
           words+=`<span class="selected">${w}</span>`; 
       });
       selectedDiv.innerHTML =`<div><div>已选字：<span id="clear">清空</span></div>${words}</div>`;
