@@ -19,11 +19,12 @@
     });
   }
   let simpleSearchFormSubmit = ()=>{
+    inputBox.focus();
     searchForm.addEventListener("submit",(e)=>{
       let key = inputBox.value;
       if(key.length>1) key=key.substring(0,1);
       console.log(key);
-      inputBox.blur();
+      //inputBox.blur();
       let info = nameData[inputBox.value];
       let word = dictData[inputBox.value];
       let result = "查无此字";
@@ -51,6 +52,8 @@
       Array.from(btns).forEach(i=>{
         i.addEventListener('touchend', btnClick);
       });
+      inputBox.value = "";
+      inputBox.focus();
       e.preventDefault();
     });
   }
