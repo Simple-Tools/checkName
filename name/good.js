@@ -101,7 +101,7 @@
       i.addEventListener('touchend', btnClick);
     });
     toggleBtn.addEventListener('touchend',toggleBtnClick);
-    if(location.href.indexOf("allSerach")>0) simpleSearchFormSubmit();
+    if(location.href.indexOf("allSearch")>0) simpleSearchFormSubmit();
     else formSubmit();
     if(/micromessenger/.exec(ua)) changeSearchPositon();
     // for(let i=0; i<btns.length; i++){
