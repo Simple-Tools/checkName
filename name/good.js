@@ -31,7 +31,7 @@
         let info = nameData[inputBox.value];
         if(info) alert(info);
         else{ 
-          if(location.href.indexOf("new")<0){
+          if(location.href.indexOf("new")<0&&location.href.indexOf("all")<0){
             alert("未找到此字,定位到新字页面");
             location.href = "new.html#"+inputBox.value;
           }

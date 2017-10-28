@@ -17,7 +17,8 @@ const filter = {
             if(err) throw err;
             this.dict = JSON.parse(data);
             //this.generate();
-            this.generateNew();
+            //this.generateNew();
+            this.generateAll();
         });
     },
     generate(){
@@ -42,6 +43,17 @@ const filter = {
                 }
             }
             this.saveNames('../new.html',newWords);
+        });
+    },
+    generateAll(){
+        let newWords = [];
+        fs.readFile('name.json','utf-8',(err,data)=>{
+            if(err) throw err;
+            let nameJson=JSON.parse(data);
+            for(let i in this.dict){
+               newWords.push({"key":i,...this.dict[i]});
+            }
+            this.saveNames('../all.html',newWords);
         });
     },
     getNames(){
@@ -79,7 +91,7 @@ const filter = {
         //console.log(names);
         names.forEach((v)=>{
             let info = "";
-            if(!v.mean) v.mean = "";
+            if(!v.mean) v.mean = this.dict[v.key].sy;
             if(this.dict[v.key]){
                 info= `<span class="py">${this.dict[v.key].py}</span>
                     <span class="wx">${this.dict[v.key].wx}</span>
