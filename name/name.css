@@ -29,7 +29,7 @@ div.nameList {
     font-weight: 300;
     font-family: 'Heiti SC', 'Microsoft YaHei';
     margin-bottom: 100px;
-    margin-top: 40px;
+    margin-top: 45px;
  }
  
  div.nameList a{
@@ -104,7 +104,7 @@ span#clear {
 
 
 .menu {
-    height: 35px;
+    height: 40px;
     padding-top: 5px;
     position: fixed;
     background: #fff;
@@ -116,10 +116,10 @@ span#clear {
 }
 
 input#search {
-    margin: 2px 20px;
+    margin: 5px 20px;
     height: 24px;
     width: 22px;
-    padding: 0 3px;
+    padding: 1px 3px;
     /* border: none; */
     border: 1px solid #9E9E9E;
     font-family: 'Heiti SC', 'Microsoft YaHei';
@@ -139,11 +139,11 @@ input:focus,[contenteditable="true"]:focus {
 
 span#toggleSlectedBtn {
     display: inline-block;
-    padding: 2px;
+    padding: 4px;
     font-size: 14px;
     border: 1px solid #9E9E9E;
     background: #f7f7f7;
-    margin: 3px 20px;
+    margin: 4px 20px;
 }
 
 form#searchForm {
