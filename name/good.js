@@ -27,10 +27,16 @@
       if(document.getElementById(key)){
         location.hash = key;
       }else{
-        if(!nameData) alert("不在此列表中");
+        //if(!nameData) alert("不在此列表中");
         let info = nameData[inputBox.value];
         if(info) alert(info);
-        else alert("未找到此字");
+        else{ 
+          if(location.href.indexOf("new")<0){
+            alert("未找到此字,定位到新字页面");
+            location.href = "new.html#"+inputBox.value;
+          }
+          else alert("不在列表中的字");
+        }
       }
       inputBox.value = "";
       //info.innerText = data[inputBox.value];
