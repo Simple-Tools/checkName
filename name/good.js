@@ -111,7 +111,7 @@
   }
   let wordHide = ()=>{
     toggleBtn.innerText = "显示已选字";
-    selectedDiv.style.margin = "0 0 -100px 0";
+    selectedDiv.style.margin = "0 0 -300px 0";
   }
   let wordShow = ()=>{
     toggleBtn.innerText = "隐藏已选字";
