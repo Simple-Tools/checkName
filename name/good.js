@@ -31,7 +31,7 @@
       let mean = "";
       sy = info ? info:"查无此字";
       if(word){
-        sy = "";
+        sy = info ? sy:"";
         mean = `
         <span class="py">${word.py}</span>
         <span class="wx">${word.wx}</span>
@@ -132,6 +132,7 @@
         keys.push(word);
       }else{
         keys.splice(keys.indexOf(word),1);
+        document.getElementById(word).className = "w";
       }
       saveWords();
       showWords();
@@ -151,6 +152,7 @@
   let showWords = init=>{
       let words = "";
       keys.forEach(w=>{
+          document.getElementById(w).className="w added";
           words+=`<span class="selected">${w}</span>`; 
       });
       selectedDiv.innerHTML =`<div><div>已选字：<span id="clear">清空</span></div>${words}</div>`;

@@ -61,6 +61,12 @@ span.addBtn, span#clear {
 span.addBtn::before{
     content:"+";
 }
+.added span.addBtn::before{
+    content:"-";
+}
+.added span.addBtn{
+    background: #e8e8e8;
+}
 
 div#selectedDiv {
     position: fixed;
