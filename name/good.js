@@ -148,14 +148,14 @@
     showWords();
     wordHide();
   };
-  let showWords = w=>{
+  let showWords = init=>{
       let words = "";
       keys.forEach(w=>{
           words+=`<span class="selected">${w}</span>`; 
       });
       selectedDiv.innerHTML =`<div><div>已选字：<span id="clear">清空</span></div>${words}</div>`;
       addEventToClear();
-      wordShow();
+      if(!init) wordShow();
   };
   addEvents();
   initWordDiv();
