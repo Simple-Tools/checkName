@@ -16,7 +16,8 @@ const filter = {
         fs.readFile('newDict.json','utf-8',(err,data)=>{
             if(err) throw err;
             this.dict = JSON.parse(data);
-            this.generate();
+            //this.generate();
+            this.generateNew();
         });
     },
     generate(){
@@ -28,6 +29,19 @@ const filter = {
             }
             let good = this.getNames();
             this.saveNames('../good.html',good);
+        });
+    },
+    generateNew(){
+        let newWords = [];
+        fs.readFile('name.json','utf-8',(err,data)=>{
+            if(err) throw err;
+            let nameJson=JSON.parse(data);
+            for(let i in this.dict){
+                if(this.dict[i].jx=="吉"){
+                    if(!nameJson[i]) newWords.push({"key":i,...this.dict[i]});
+                }
+            }
+            this.saveNames('../new.html',newWords);
         });
     },
     getNames(){
@@ -62,8 +76,10 @@ const filter = {
     saveNames(fileName,names){
         //console.log()
         let lines = "";
+        //console.log(names);
         names.forEach((v)=>{
             let info = "";
+            if(!v.mean) v.mean = "";
             if(this.dict[v.key]){
                 info= `<span class="py">${this.dict[v.key].py}</span>
                     <span class="wx">${this.dict[v.key].wx}</span>
