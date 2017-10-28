@@ -25,9 +25,9 @@
       if(key.length>1) key=key.substring(0,1);
       console.log(key);
       //inputBox.blur();
-      let info = nameData[inputBox.value];
-      let dictData = window.dictData?dictData:[];
-      let word = dictData[inputBox.value];
+      let info = nameData[key];
+      //let dictData = window.dictData?dictData:[];
+      let word = dictData[key];
       let mean = "";
       sy = info ? info:"查无此字";
       if(word){
@@ -40,8 +40,8 @@
         sy+="<br><br>释意："+word.sy;
       }
       result = `
-      <div id="${inputBox.value}" class="w">
-      <a href="http://hanyu.baidu.com/s?wd=${inputBox.value}&ptype=zici">${inputBox.value}</a>
+      <div id="${key}" class="w">
+      <a href="http://hanyu.baidu.com/s?wd=${key}&ptype=zici">${key}</a>
       ${mean}
       <span class="addBtn">备选</span>
       <br><span class="mean">${sy}</span>
@@ -66,12 +66,12 @@
         location.hash = key;
       }else{
         //if(!nameData) alert("不在此列表中");
-        let info = nameData[inputBox.value];
+        let info = nameData[key];
         if(info) alert(info);
         else{ 
           if(location.href.indexOf("new")<0&&location.href.indexOf("all")<0){
             alert("未找到此字,定位到新字页面");
-            location.href = "new.html#"+inputBox.value;
+            location.href = "new.html#"+key;
           }
           else alert("不在列表中的字");
         }
@@ -128,7 +128,11 @@
     //   console.log("HI");
     //   console.log(e.srcElement.parentElement.id);
       let word = e.srcElement.parentElement.id;
-      if(keys.indexOf(word)<0) keys.push(word);
+      if(keys.indexOf(word)<0){
+        keys.push(word);
+      }else{
+        keys.splice(keys.indexOf(word),1);
+      }
       saveWords();
       showWords();
   };
