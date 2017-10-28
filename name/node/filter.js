@@ -18,7 +18,7 @@ const filter = {
             this.dict = JSON.parse(data);
             //this.generate();
             //this.generateNew();
-            this.generateAll();
+            this.generateAll(1);
         });
     },
     generate(){
@@ -45,15 +45,16 @@ const filter = {
             this.saveNames('../new.html',newWords);
         });
     },
-    generateAll(){
+    generateAll(isGood){
         let newWords = [];
         fs.readFile('name.json','utf-8',(err,data)=>{
             if(err) throw err;
             let nameJson=JSON.parse(data);
             for(let i in this.dict){
+               if(isGood && this.dict[i].jx!="吉") continue;  
                newWords.push({"key":i,...this.dict[i]});
             }
-            this.saveNames('../all.html',newWords);
+            this.saveNames('../allGood.html',newWords);
         });
     },
     getNames(){

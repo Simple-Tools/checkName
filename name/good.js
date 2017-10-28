@@ -26,6 +26,7 @@
       console.log(key);
       //inputBox.blur();
       let info = nameData[inputBox.value];
+      let dictData = window.dictData?dictData:[];
       let word = dictData[inputBox.value];
       let mean = "";
       sy = info ? info:"查无此字";
@@ -55,7 +56,7 @@
       e.preventDefault();
     });
   }
-  let fromSubmit = ()=>{
+  let formSubmit = ()=>{
     searchForm.addEventListener("submit",(e)=>{
       let key = inputBox.value;
       if(key.length>1) key=key.substring(0,1);
@@ -100,8 +101,8 @@
       i.addEventListener('touchend', btnClick);
     });
     toggleBtn.addEventListener('touchend',toggleBtnClick);
-    if(location.href.indexOf("allSerach")) simpleSearchFormSubmit();
-    else fromSubmit();
+    if(location.href.indexOf("allSerach")>0) simpleSearchFormSubmit();
+    else formSubmit();
     if(/micromessenger/.exec(ua)) changeSearchPositon();
     // for(let i=0; i<btns.length; i++){
     //   btns[i].addEventListener('touchend', btnClick);
