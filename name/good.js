@@ -18,6 +18,42 @@
       searchForm.style.margin = "0";
     });
   }
+  let simpleSearchFormSubmit = ()=>{
+    searchForm.addEventListener("submit",(e)=>{
+      let key = inputBox.value;
+      if(key.length>1) key=key.substring(0,1);
+      console.log(key);
+      inputBox.blur();
+      let info = nameData[inputBox.value];
+      let word = dictData[inputBox.value];
+      let result = "查无此字";
+      let mean = "";
+      let sy = info ? info:"";
+      if(info || word){
+        if(word){
+          mean = `
+          <span class="py">${word.py}</span>
+          <span class="wx">${word.wx}</span>
+          <span class="jx">${word.jx}</span>
+          `;
+          sy+="<br><br>释意："+word.sy;
+        }
+        result = `
+        <div id="${inputBox.value}" class="w">
+        <a href="http://hanyu.baidu.com/s?wd=${inputBox.value}&ptype=zici">${inputBox.value}</a>
+        ${mean}
+        <span class="addBtn">备选</span>
+        <br><span class="mean">${sy}</span>
+        <div>`;
+      }
+      document.getElementById('result').innerHTML = result;
+      //info.innerText = data[inputBox.value];
+      Array.from(btns).forEach(i=>{
+        i.addEventListener('touchend', btnClick);
+      });
+      e.preventDefault();
+    });
+  }
   let fromSubmit = ()=>{
     searchForm.addEventListener("submit",(e)=>{
       let key = inputBox.value;
@@ -63,7 +99,8 @@
       i.addEventListener('touchend', btnClick);
     });
     toggleBtn.addEventListener('touchend',toggleBtnClick);
-    fromSubmit();
+    if(location.href.indexOf("allSerach")) simpleSearchFormSubmit();
+    else fromSubmit();
     if(/micromessenger/.exec(ua)) changeSearchPositon();
     // for(let i=0; i<btns.length; i++){
     //   btns[i].addEventListener('touchend', btnClick);
