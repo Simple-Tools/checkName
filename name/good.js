@@ -27,26 +27,24 @@
       //inputBox.blur();
       let info = nameData[inputBox.value];
       let word = dictData[inputBox.value];
-      let result = "查无此字";
       let mean = "";
-      let sy = info ? info:"";
-      if(info || word){
-        if(word){
-          mean = `
-          <span class="py">${word.py}</span>
-          <span class="wx">${word.wx}</span>
-          <span class="jx">${word.jx}</span>
-          `;
-          sy+="<br><br>释意："+word.sy;
-        }
-        result = `
-        <div id="${inputBox.value}" class="w">
-        <a href="http://hanyu.baidu.com/s?wd=${inputBox.value}&ptype=zici">${inputBox.value}</a>
-        ${mean}
-        <span class="addBtn">备选</span>
-        <br><span class="mean">${sy}</span>
-        <div>`;
+      sy = info ? info:"查无此字";
+      if(word){
+        sy = "";
+        mean = `
+        <span class="py">${word.py}</span>
+        <span class="wx">${word.wx}</span>
+        <span class="jx">${word.jx}</span>
+        `;
+        sy+="<br><br>释意："+word.sy;
       }
+      result = `
+      <div id="${inputBox.value}" class="w">
+      <a href="http://hanyu.baidu.com/s?wd=${inputBox.value}&ptype=zici">${inputBox.value}</a>
+      ${mean}
+      <span class="addBtn">备选</span>
+      <br><span class="mean">${sy}</span>
+      <div>`;
       document.getElementById('result').innerHTML = result;
       //info.innerText = data[inputBox.value];
       Array.from(btns).forEach(i=>{
@@ -111,7 +109,8 @@
   }
   let wordHide = ()=>{
     toggleBtn.innerText = "显示已选字";
-    selectedDiv.style.margin = "0 0 -300px 0";
+    let divHeight = document.getElementById("selectedDiv").offsetHeight+10;
+    selectedDiv.style.margin = `0 0 -${divHeight}px 0`;
   }
   let wordShow = ()=>{
     toggleBtn.innerText = "隐藏已选字";
