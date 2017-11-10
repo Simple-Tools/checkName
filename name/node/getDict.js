@@ -1,4 +1,5 @@
 //http://wuxing.bm8.com.cn/wap_wuxing/7055.html
+//http://m.xingming.com/zidian/hz7065.html
 //https://wenku.baidu.com/view/c0b7fe8502d276a200292e8d.html
 const fs = require('fs');
 const http = require('http');
