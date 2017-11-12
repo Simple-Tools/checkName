@@ -1,6 +1,8 @@
 let name1 = 14,name2=0,name3=0;
 let good = [1,3,5,7,8,11,13,15,16,18,21,23,24,25,31,32,33,35,37,39,41,45,47,48,52,57,61,63,65,67,68,81];
-let toselect = new Set()
+let toselect = new Set();
+let first = [];
+let second = [];
 for(let i of good){
 	name3=i-1;
 	if(name3<1||name3>30) continue;
@@ -9,14 +11,20 @@ for(let i of good){
 		let s1 = name1+name2+name3;
 		let s2 = name1+name2;
 		let s3 = name2+name3;
+
 		if(good.includes(s1)&good.includes(s2)&good.includes(s3)) {
 			console.log(`${name2},${name3}`);
 			toselect.add(name2);
 			toselect.add(name3);
+			if(first.indexOf(name2)<0) first.push(name2);
+			if(second.indexOf(name3)<0) second.push(name3);
+			first.sort((a,b)=>{return a-b});
 		}
 	}
 }
 console.log(toselect);
+console.log(first);
+console.log(second);
 
 /*
 output:

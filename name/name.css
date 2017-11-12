@@ -49,6 +49,10 @@ div.w {
     padding-top: 60px;
 }
 
+div.classed a{
+     font-size: 16px;
+}
+
 span.addBtn, span#clear {
     float:right;
     margin-top: 3px;
@@ -151,3 +155,27 @@ form#searchForm {
     background: #fff;
     /* margin-top: 30px; */
 }
+
+.classed {
+    color: #aaa;
+}
+.first {
+    color:#000000;
+}
+.second {
+    color:#000000;
+}
+div.nameList .classed a{
+    color: #aaa;
+}
+div.nameList .first a{
+    color:#E91E63;
+}
+div.nameList .second a{
+    color:#2196F3;
+}
+div.nameList .first.second a{
+    color:#673AB7;
+}
+
+

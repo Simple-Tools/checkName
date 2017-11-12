@@ -95,6 +95,7 @@ const filter = {
             if(!v.mean) v.mean = "";// this.dict[v.key].sy;
             if(this.dict[v.key]){
                 info= `<span class="py">${this.dict[v.key].py}</span>
+                    <span class="bh">${this.dict[v.key].bh}</span>
                     <span class="wx">${this.dict[v.key].wx}</span>
                     <span class="jx">${this.dict[v.key].jx}</span>`
             }

@@ -70,6 +70,79 @@ const download = {
         wordArray = JSON.parse(data);
         count.downloadItems = wordArray.length;
     },
+    addBhToDict(){
+        this.loadJson();
+        fs.readFile("newDict.json","utf-8",(err,data)=>{
+            let wordObjs = JSON.parse(data);
+            for(let i in wordObjs){
+                let w = wordArray.find(v=>v.key==i);
+                if(w){
+                    wordObjs[i] = {...wordObjs[i],"bh":w.bh}
+                }
+            }
+            fs.writeFile("newDict.json",JSON.stringify(wordObjs),(err)=>{
+                if(err) throw err;
+            })
+        });
+    },
+    generateBhHtml(){
+        let first = [ 1, 2, 4, 7, 9, 10, 11, 17, 18, 19, 21, 23, 25, 27 ];
+        let second = [ 2, 4, 6, 7, 10, 12, 14, 15, 17, 20, 22, 23, 24, 30 ];
+        this.loadJson();
+        let sorted = wordArray.sort((a,b)=>{return a.bh -b.bh});
+        let classed = {};
+        for(let w of sorted){
+            if(!classed[w.bh]) classed[w.bh]={"水":[],"木":[],"金":[],"火":[],"土":[]};
+            if(!classed[w.bh][w.wx]) classed[w.bh][w.wx] = [];
+            classed[w.bh][w.wx].push(w.key); 
+        }
+        let lines = "";
+        for(let i in classed){
+            let mark = "";
+            if(first.indexOf(i-0)>-1) mark+=" first";
+            if(second.indexOf(i-0)>-1) mark+=" second";
+            lines+=`<div id="${i}" class="w classed${mark}">笔画数为：${i}<br>`;
+            for(let k in classed[i]){
+                lines+=`
+                <p>${k}: `
+                for(let w of classed[i][k]){
+                    lines+= `
+                    <a href="http://hanyu.baidu.com/s?wd=${w}&ptype=zici">${w}</a> `;
+                } 
+                lines += `
+                </p> `;
+            }
+            lines+=`
+            </div>
+            `
+        }
+        let html = `<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link rel="stylesheet" href="name.css">
+            <title>五行笔画</title>
+        </head>
+        <body>
+            <div class="menu">
+                <span id="toggleSlectedBtn">显示已选字</span> 
+                <form id="searchForm"> 
+                    <input name="search" id="search"/>
+                </form>
+            </div>
+            <div class="nameList">
+            ${lines}
+            </div>
+            <script src="good.js"></script>
+        </body>
+        </html>`;
+        fs.writeFile("../allClassed.html",html,'utf-8',(err)=>{
+            if(err) throw err;
+        })
+        //console.log(classed);
+    },
     run(num){
         count.items = num; 
         this.loadJson();
@@ -85,5 +158,6 @@ const download = {
 };
 
 //download.runSync();
-download.run(7065);
+// download.run(7065);
+download.generateBhHtml();
 //download.jsonToCsv(7065);

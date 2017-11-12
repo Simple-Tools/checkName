@@ -36,6 +36,7 @@
         <span class="py">${word.py}</span>
         <span class="wx">${word.wx}</span>
         <span class="jx">${word.jx}</span>
+        <span class="bh">${word.bh}</span>
         `;
         sy+="<br><br>释意："+word.sy;
       }

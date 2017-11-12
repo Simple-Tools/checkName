@@ -14,7 +14,7 @@ const converter = {
                 //let content = JSON.parse(`{${word.content.replace(/;/gi,',')}}`);
                 wordDict[key] = d;
             }
-            fs.writeFile('newDict.json',JSON.stringify(wordDict),'utf-8''utf-8',(err)=>{
+            fs.writeFile('newDict.json',JSON.stringify(wordDict),'utf-8',(err)=>{
                 if(err) throw err;
             })
         })
